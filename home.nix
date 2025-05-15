@@ -10,6 +10,7 @@
     nnn
     jq
     fzf
+    gparted
 
     # games
     vesktop
@@ -25,7 +26,8 @@
     p7zip
 
     # media
-    gpu-screen-recorder
+    grim
+    slurp
     vlc
     pavucontrol
 
@@ -46,6 +48,8 @@
     # productivity
     hugo # static site generator
     glow # markdown previewer in terminal
+    libreoffice
+    davinci-resolve
 
     btop  # replacement of htop/nmon
     iotop # io monitoring
@@ -64,11 +68,11 @@
     usbutils # lsusb
     ];
 
-   programs.git = {
+  programs.git = {
     enable = true;
     userName = "bombshell2";
     userEmail = "coleuu123@gmail.com";
-   };
+  };
   
   wayland.windowManager.sway = {
     enable = true;
@@ -87,9 +91,10 @@
 	};
       };
       keybindings = let
-      modifier = "Mod4";
+        modifier = "Mod4";
       in lib.mkOptionDefault {
 	"${modifier}+Shift+p" = "sticky toggle";
+	"${modifier}+p" = "grim -g \"$(slurp)\"";
       };
       fonts = {
 	names = ["Pango" "FontAwesome5Free"];

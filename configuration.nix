@@ -18,6 +18,7 @@
   networking.hostName = "bombshell2nix"; # Define your hostname.
   # Pick only one of the below networking options.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.insertNameservers = ["1.1.1.1" "1.0.0.1"];
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -36,7 +37,7 @@
   services.flatpak.enable = true;
   
   nixpkgs.config.allowUnfree = true;
-  
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -54,10 +55,13 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bombshell2 = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
   };
 
   programs.steam.enable = true;
+  virtualisation.docker = {
+    enable = true;
+  };
 
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -68,6 +72,8 @@
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     wl-clipboard
+    distrobox
+    unityhub
   ];
 
   environment.variables.EDITOR = "nvim";

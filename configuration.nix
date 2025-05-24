@@ -23,6 +23,8 @@
   # Set your time zone.
   time.timeZone = "America/New_York";
 
+  programs.nix-ld.enable = true;
+ 
   # Enable Flatpak
   xdg = {
     portal = {
@@ -50,6 +52,9 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [
+     rocmPackages.clr.icd
+   ];
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

@@ -3,6 +3,9 @@
 {
   home.username = "bombshell2";
   home.homeDirectory = "/home/bombshell2";
+  home.sessionPath = [
+    "/nix/store/y7y3q1ydq7m9ka1ycx9d922dd2rc2xi5-android-tools-35.0.1/bin"
+  ];
 
   imports = [ ./home/programs/nixvim.nix ];
 
@@ -13,13 +16,16 @@
     jq
     fzf
     gparted
+    python3
 
     # games
     vesktop
     protonup-qt
     protontricks
     prismlauncher
-    alvr
+    quake3e
+    r2modman
+    appimage-run
    
     # archives
     zip
@@ -35,6 +41,8 @@
     gimp
     pavucontrol
     ungoogled-chromium
+    blender
+    dvdstyler
 
     # misc
     tree
@@ -54,7 +62,6 @@
     hugo # static site generator
     glow # markdown previewer in terminal
     libreoffice
-    davinci-resolve
 
     btop  # replacement of htop/nmon
     iotop # io monitoring
@@ -72,6 +79,7 @@
     pciutils # lspci
     usbutils # lsusb
   ];
+
 
   programs.git = {
     enable = true;

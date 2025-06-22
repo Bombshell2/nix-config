@@ -9,11 +9,13 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/davinci.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages=pkgs.linuxPackages_latest;
 
   networking.hostName = "bombshell2nix"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -30,14 +32,14 @@
     portal = {
       enable = true;
       extraPortals = with pkgs; [
-	xdg-desktop-portal-wlr
-	xdg-desktop-portal-gtk
+	      xdg-desktop-portal-wlr
+	      xdg-desktop-portal-gtk
       ];
       config.common.default = "*";
     };
   };
   services.flatpak.enable = true;
-  
+ 
   nixpkgs.config.allowUnfree = true;
 
   # Enable CUPS to print documents.
@@ -47,21 +49,26 @@
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
   };
+
+  hardware.steam-hardware.enable = true;
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [
-     rocmPackages.clr.icd
-   ];
   };
 
+  programs.adb.enable = true;
+  
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bombshell2 = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "adbusers" ]; # Enable ‘sudo’ for the user.
   };
+
+  
 
   programs.steam.enable = true;
   virtualisation.docker = {
@@ -79,15 +86,16 @@
     wl-clipboard
     distrobox
     unityhub
+    lxqt.lxqt-policykit
+    extundelete
   ];
 
   environment.variables.EDITOR = "nvim";
 
   fonts.enableDefaultPackages = true;
   fonts.packages = with pkgs; [
-    nerdfonts
     pango
-  ];
+  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   security.polkit.enable = true;
 

@@ -1,7 +1,7 @@
 {config, lib, pkgs, ... }:
 
 {
-  nixvim = {
+  programs.nixvim = {
     config = {
     # Reduce closure size
     enableMan = false;
@@ -98,7 +98,9 @@
           },
         })
       '';
-      };
+    };
+    options = {
+      shiftwidth = 2;
     };
   };
 }

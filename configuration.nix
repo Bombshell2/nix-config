@@ -3,7 +3,6 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, inputs, ... }:
-#{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -20,7 +19,7 @@
   networking.hostName = "bombshell2nix"; # Define your hostname.
   # Pick only one of the below networking options.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  networking.networkmanager.insertNameservers = ["1.1.1.1" "1.0.0.1"];
+  networking.networkmanager.insertNameservers = ["8.8.8.8" "8.8.4.4"];
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -68,8 +67,6 @@
     extraGroups = [ "wheel" "docker" "adbusers" ]; # Enable ‘sudo’ for the user.
   };
 
-  
-
   programs.steam.enable = true;
   virtualisation.docker = {
     enable = true;
@@ -83,11 +80,10 @@
   environment.systemPackages = with pkgs; [
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    wl-clipboard
     distrobox
-    unityhub
     lxqt.lxqt-policykit
     extundelete
+    git
   ];
 
   environment.variables.EDITOR = "nvim";
@@ -98,6 +94,16 @@
   ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   security.polkit.enable = true;
+
+  services.greetd = {                                                      
+    enable = true;                                                         
+    settings = {                                                           
+      default_session = {                                                  
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'dbus-run-session sway'";
+        user = "bombshell2";                                                  
+      };                                                                   
+    };                                                                     
+  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

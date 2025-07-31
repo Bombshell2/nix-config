@@ -7,7 +7,11 @@
     "/nix/store/y7y3q1ydq7m9ka1ycx9d922dd2rc2xi5-android-tools-35.0.1/bin"
   ];
 
-  imports = [ ./home/programs/nixvim.nix ];
+  imports = [ 
+    ./home/programs/nixvim.nix 
+    ./home/shell/default.nix
+    ./home/sway/sway.nix
+  ];
 
   home.packages = with pkgs; [
     # utils
@@ -17,15 +21,17 @@
     fzf
     gparted
     python3
+    amdgpu_top
 
     # games
     vesktop
     protonup-qt
     protontricks
     prismlauncher
-    quake3e
     r2modman
-    appimage-run
+    ckan
+    blockbench
+    zoom
    
     # archives
     zip
@@ -34,15 +40,11 @@
     p7zip
 
     # media
-    grim
-    slurp
     vlc
     ffmpeg
     gimp
     pavucontrol
-    ungoogled-chromium
     blender
-    dvdstyler
 
     # misc
     tree
@@ -78,50 +80,15 @@
     ethtool
     pciutils # lspci
     usbutils # lsusb
+    zulu23
   ];
 
 
   programs.git = {
-    enable = true;
     userName = "bombshell2";
     userEmail = "coleuu123@gmail.com";
   };
   
-  wayland.windowManager.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    config = rec {
-      modifier = "Mod4";
-      terminal = "alacritty";
-      output = {
-        DP-3 = {
-          resolution = "3440x1440";
-          position = "0,0";
-        };
-        HDMI-A-1 = {
-          resolution = "1920x1080";
-          position = "3440,0";
-        };
-      };
-      keybindings = let
-        modifier = "Mod4";
-      in lib.mkOptionDefault {
-        "${modifier}+Shift+p" = "sticky toggle";
-        "${modifier}+p" = "grim -g \"$(slurp)\"";
-      };
-      fonts = {
-        names = ["Pango" "FontAwesome5Free"];
-        style = "Monospace";
-        size = "9";
-      };
-      startup = [
-        {command = "firefox";}
-      ];
-    };
-  };
-
-  services.mako.enable = false;
-
   programs = {
     firefox = {
       enable = true;
@@ -157,16 +124,6 @@
         bright.magenta = "#e1acff";
         bright.cyan = "#a3f7ff";
         bright.white = "#ffffff";
-      };
-    };
-    bash = {
-      enable = true;
-      enableCompletion = true;
-      sessionVariables = {
-        SUDO_EDITOR = "/usr/bin/nvim";
-      };
-      shellAliases = {
-        sedit = "sudoedit";
       };
     };
   };

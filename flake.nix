@@ -15,23 +15,37 @@
 
   outputs = inputs@{ nixpkgs, home-manager, nixvim, ... }: {
     nixosConfigurations = {
-      bombshell2nix = nixpkgs.lib.nixosSystem {
+      homemachine = nixpkgs.lib.nixosSystem {
 	      system = "x86_64-linux";
 	      specialArgs = { inherit inputs; };
 	      modules = [
-	        ./configuration.nix
           ./hosts/amd7900
-          ./modules/davinci.nix
 	        home-manager.nixosModules.home-manager
 	        {
 	          home-manager = {
 	            useGlobalPkgs = true;
 	            useUserPackages = true;
 	            sharedModules = [ nixvim.homeManagerModules.nixvim ];
-	            users.bombshell2 = import ./home.nix;
+	            users.bombshell2 = import ./hosts/homemachine/home.nix;
 	          };
 	        }
 	      ];
+      };
+      nixlaptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/nixlaptop
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              sharedModules = [ nixvim.homeManagerModules.nixvim ];
+              users.bombshell2 = import ./hosts/nixlaptop/home.nix;
+            }
+          }
+        ];
       };
     };
   };

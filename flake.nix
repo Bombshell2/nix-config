@@ -19,7 +19,7 @@
 	      system = "x86_64-linux";
 	      specialArgs = { inherit inputs; };
 	      modules = [
-          ./hosts/amd7900
+          ./hosts/homemachine
 	        home-manager.nixosModules.home-manager
 	        {
 	          home-manager = {
@@ -43,7 +43,7 @@
               useUserPackages = true;
               sharedModules = [ nixvim.homeManagerModules.nixvim ];
               users.bombshell2 = import ./hosts/nixlaptop/home.nix;
-            }
+            };
           }
         ];
       };

@@ -2,7 +2,7 @@
 
 {
   home.username = "bombshell2";
-  home.homeDirectory = "/home/bombshell2";
+  home.homeDirectory = lib.mkForce "/home/bombshell2";
   home.sessionPath = [
     "/nix/store/y7y3q1ydq7m9ka1ycx9d922dd2rc2xi5-android-tools-35.0.1/bin"
   ];

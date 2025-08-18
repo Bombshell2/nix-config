@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  imports = [ ./hardware-configuration.nix ../../modules/davinci.nix];
+  imports = [ ./hardware-configuration.nix ../../modules/system.nix ../../modules/davinci.nix];
 
   boot = {
     loader = {

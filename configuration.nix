@@ -5,10 +5,6 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
-  imports =
-    [
-      ./modules/davinci.nix
-    ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -24,7 +20,13 @@
   time.timeZone = "America/New_York";
 
   programs.nix-ld.enable = true;
- 
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+
   # Enable Flatpak
   xdg = {
     portal = {

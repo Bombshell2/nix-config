@@ -10,7 +10,7 @@
     kernelPackages=pkgs.linuxPackages_latest;
   };
 
-  networking.hostName = "bombshell2nix";
+  networking.hostName = "homemachine";
 
   programs.adb.enable = true;
   programs.steam.enable = true;

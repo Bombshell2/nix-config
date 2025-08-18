@@ -23,6 +23,7 @@
     lxqt.lxqt-policykit
     extundelete
     git
+    hub
    
     # archives
     zip

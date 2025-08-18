@@ -26,6 +26,7 @@
     lxqt.lxqt-policykit
     extundelete
     git
+    hub
 
     # games
     vesktop

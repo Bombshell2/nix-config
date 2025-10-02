@@ -5,9 +5,9 @@
   home.homeDirectory = lib.mkForce "/home/bombshell2";
 
   imports = [ 
-    ../../home/programs/nixvim.nix 
-    ../../home/shell/default.nix
-    ../../home/sway/sway.nix
+    ./programs/nixvim.nix 
+    ./shell/default.nix
+    ./sway/sway.nix
   ];
 
   home.packages = with pkgs; [

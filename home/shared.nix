@@ -2,15 +2,12 @@
 
 {
   home.username = "bombshell2";
-  home.homeDirectory = "/home/bombshell2";
-  home.sessionPath = [
-    "/nix/store/y7y3q1ydq7m9ka1ycx9d922dd2rc2xi5-android-tools-35.0.1/bin"
-  ];
+  home.homeDirectory = lib.mkForce "/home/bombshell2";
 
   imports = [ 
-    ./home/programs/nixvim.nix 
-    ./home/shell/default.nix
-    ./home/sway/sway.nix
+    ../../home/programs/nixvim.nix 
+    ../../home/shell/default.nix
+    ../../home/sway/sway.nix
   ];
 
   home.packages = with pkgs; [
@@ -21,18 +18,10 @@
     fzf
     gparted
     python3
-    amdgpu_top
-
-    # games
-    vesktop
-    protonup-qt
-    protontricks
-    prismlauncher
-    r2modman
-    ckan
-    blockbench
-    zoom
-   
+    gammastep
+    brightnessctl
+    wget
+    
     # archives
     zip
     xz
@@ -44,7 +33,7 @@
     ffmpeg
     gimp
     pavucontrol
-    blender
+    kdePackages.dolphin
 
     # misc
     tree
@@ -53,6 +42,11 @@
     gawk
     gnupg
     lua
+    appimage-run
+    undollar
+    libnotify
+    lxqt.lxqt-policykit
+    extundelete
 
     # nix related
     #
@@ -64,6 +58,8 @@
     hugo # static site generator
     glow # markdown previewer in terminal
     libreoffice
+    git
+    hub
 
     btop  # replacement of htop/nmon
     iotop # io monitoring
@@ -83,23 +79,14 @@
     zulu23
   ];
 
-
-  programs.git = {
-    userName = "bombshell2";
-    userEmail = "coleuu123@gmail.com";
-  };
-  
   programs = {
+    git = {
+      userName = "bombshell2";
+      userEmail = "coleuu123@gmail.com";
+      lfs.enable = true;
+    }; 
     firefox = {
       enable = true;
-    };
-    obs-studio = {
-      enable = true;
-    	plugins = with pkgs.obs-studio-plugins; [
-  	    wlrobs
-	      obs-backgroundremoval
-	      obs-pipewire-audio-capture
-	    ];
     };
     alacritty = {
       enable = true;
@@ -128,7 +115,5 @@
     };
   };
 
-  home.stateVersion = "24.11";
   programs.home-manager.enable = true;
 }
-

@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  imports = [ ./hardware-configuration.nix ../../modules/system.nix ../../modules/davinci.nix];
+  imports = [ ./hardware-configuration.nix ../../modules/system.nix ../../modules/davinci.nix ../../modules/monado.nix];
 
   boot = {
     loader = {
@@ -18,6 +18,11 @@
   virtualisation.docker = {
     enable = true;
   };
+
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = ["bombshell2"];
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

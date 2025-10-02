@@ -40,4 +40,9 @@
       ];
     };
   };
+  programs.i3blocks.bars.bottom = rec {
+    time = {
+      interval = 1;
+    };
+  };
 }

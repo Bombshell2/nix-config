@@ -63,7 +63,7 @@
 
   users.users.bombshell2 = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "adbusers" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "adbusers" "uinput"]; # Enable ‘sudo’ for the user.
   };
  
   # Enable Flakes
@@ -81,6 +81,7 @@
   fonts.enableDefaultPackages = true;
   fonts.packages = with pkgs; [
     pango
+    corefonts
   ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   security.polkit.enable = true;
